@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>由mysql默认编码latin1导致不能写入中文的解决 | 建伟博客</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="http://localhost:4000/favicon.ico?v=1582869696573">
+<link rel="stylesheet" href="http://localhost:4000/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="方法很暴力
+首先确定是lantin1编码
+
+show create database test_db;
+
++----------+-------------------------------------------------------..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="http://localhost:4000">
+        <img src="http://localhost:4000/images/avatar.png?v=1582869696573" class="site-logo">
+        <h1 class="site-title">建伟博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="http://localhost:4000/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="http://localhost:4000/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="http://localhost:4000/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="http://localhost:4000/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+        
+          <a href="http://localhost:4000/mblog" class="site-nav">
+            自言自语
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="http://localhost:4000/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">由mysql默认编码latin1导致不能写入中文的解决</h2>
+            <div class="post-date">2020-02-28</div>
+            
+            <div class="post-content" v-pre>
+              <p>方法很暴力</p>
+<p>首先确定是lantin1编码</p>
+<blockquote>
+<p>show create database test_db;</p>
+</blockquote>
+<pre><code>+----------+----------------------------------------------------------------+
+| Database | Create Database                                                |
++----------+----------------------------------------------------------------+
+| test_db      | CREATE DATABASE `test_db` /*!40100 DEFAULT CHARACTER SET latin1 */ |
++----------+----------------------------------------------------------------+
+</code></pre>
+<p>然后，查看表内字符集</p>
+<blockquote>
+<p>use test_db;<br>
+show create table test_table;</p>
+</blockquote>
+<pre><code>...
+`user_name` varchar(64) DEFAULT NULL,
+...
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
+</code></pre>
+<p>好了，确定是这样，解决起来就简单了</p>
+<pre><code class="language-SQL">ALTER DATABASE `test_db` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci';
+
+use test_db;
+
+ALTER TABLE `test_table` CONVERT TO CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`; 
+
+</code></pre>
+<p>执行之后，数据库和表，就变成了 utf8mb4</p>
+<p>此方法只适用于默认编码，表中的字段没有设置字符集的状态。</p>
+<p>如果字段已经设置字符集，修改每个字段的字符集，就比较麻烦了</p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="http://localhost:4000/post/centos-shi-yong-yum-an-zhuang-php-huan-jing">
+                  <h3 class="post-title">
+                    CentOS使用yum安装php环境
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: 'c0506865423f1ff06a5f',
+        clientSecret: '804f2d9f1ad6d59341eccf51fba695ba0ac94432',
+        repo: 'https://github.com/i29/webddc.com',
+        owner: 'i29',
+        admin: ['i29'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
