@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>http://localhost:4000</id>
+    <id>https://i29.github.io/</id>
     <title>建伟博客</title>
-    <updated>2020-02-28T06:01:44.785Z</updated>
+    <updated>2020-02-28T06:21:06.772Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="http://localhost:4000"/>
-    <link rel="self" href="http://localhost:4000/atom.xml"/>
+    <link rel="alternate" href="https://i29.github.io/"/>
+    <link rel="self" href="https://i29.github.io/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>http://localhost:4000/images/avatar.png</logo>
-    <icon>http://localhost:4000/favicon.ico</icon>
+    <logo>https://i29.github.io/images/avatar.png</logo>
+    <icon>https://i29.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 建伟博客</rights>
     <entry>
         <title type="html"><![CDATA[由mysql默认编码latin1导致不能写入中文的解决]]></title>
-        <id>http://localhost:4000/post/you-mysql-mo-ren-bian-ma-latin1-dao-zhi-bu-neng-xie-ru-zhong-wen-de-jie-jue</id>
-        <link href="http://localhost:4000/post/you-mysql-mo-ren-bian-ma-latin1-dao-zhi-bu-neng-xie-ru-zhong-wen-de-jie-jue">
+        <id>https://i29.github.io/post/you-mysql-mo-ren-bian-ma-latin1-dao-zhi-bu-neng-xie-ru-zhong-wen-de-jie-jue</id>
+        <link href="https://i29.github.io/post/you-mysql-mo-ren-bian-ma-latin1-dao-zhi-bu-neng-xie-ru-zhong-wen-de-jie-jue">
         </link>
         <updated>2020-02-28T05:52:50.000Z</updated>
         <content type="html"><![CDATA[<p>方法很暴力</p>
@@ -52,8 +52,8 @@ ALTER TABLE `test_table` CONVERT TO CHARACTER SET `utf8mb4` COLLATE `utf8mb4_gen
     </entry>
     <entry>
         <title type="html"><![CDATA[CentOS使用yum安装php环境]]></title>
-        <id>http://localhost:4000/post/centos-shi-yong-yum-an-zhuang-php-huan-jing</id>
-        <link href="http://localhost:4000/post/centos-shi-yong-yum-an-zhuang-php-huan-jing">
+        <id>https://i29.github.io/post/centos-shi-yong-yum-an-zhuang-php-huan-jing</id>
+        <link href="https://i29.github.io/post/centos-shi-yong-yum-an-zhuang-php-huan-jing">
         </link>
         <updated>2020-02-11T08:01:34.000Z</updated>
         <content type="html"><![CDATA[<p>这里推荐使用Webtatic yum源</p>
@@ -77,8 +77,8 @@ rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>http://localhost:4000/post/hello-gridea</id>
-        <link href="http://localhost:4000/post/hello-gridea">
+        <id>https://i29.github.io/post/hello-gridea</id>
+        <link href="https://i29.github.io/post/hello-gridea">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
