@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>由mysql默认编码latin1导致不能写入中文的解决 | 建伟博客</title>
+<title>[环境配置]Mac下使用nvm安装Nodejs 及配置镜像源 | 建伟博客</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,12 +24,14 @@
 
 
 
-    <meta name="description" content="方法很暴力
-首先确定是lantin1编码
-
-show create database test_db;
-
-+----------+-------------------------------------------------------..." />
+    <meta name="description" content="环境
+操作系统：macOS 10.13
+Shell：Oh My Zsh
+安装 Node.js 的最佳方式是使用nvm
+nvm
+安装nvm的方式很简单，只需要一条命令运行安装脚本就可以完成。
+使用cURL工具
+curl -o- https:/..." />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -107,51 +109,52 @@ show create database test_db;
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">由mysql默认编码latin1导致不能写入中文的解决</h2>
-            <div class="post-date">2020-02-28</div>
+            <h2 class="post-title">[环境配置]Mac下使用nvm安装Nodejs 及配置镜像源</h2>
+            <div class="post-date">2020-03-12</div>
             
             <div class="post-content" v-pre>
-              <p>方法很暴力</p>
-<p>首先确定是lantin1编码</p>
-<blockquote>
-<p>show create database test_db;</p>
-</blockquote>
-<pre><code>+----------+----------------------------------------------------------------+
-| Database | Create Database                                                |
-+----------+----------------------------------------------------------------+
-| test_db      | CREATE DATABASE `test_db` /*!40100 DEFAULT CHARACTER SET latin1 */ |
-+----------+----------------------------------------------------------------+
+              <p>环境<br>
+操作系统：macOS 10.13<br>
+Shell：Oh My Zsh<br>
+安装 Node.js 的最佳方式是使用nvm<br>
+nvm<br>
+安装nvm的方式很简单，只需要一条命令运行安装脚本就可以完成。</p>
+<p>使用cURL工具</p>
+<p>curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash<br>
+或者使用Wget</p>
+<p>wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash<br>
+因为Node更新迭代较快，最佳方式是使用nvm来进行版本管理，因为nvm支持镜像选项，所以，简单设置环境变量</p>
+<p>打开~/.zshrc</p>
+<p>末尾加入设置环境变量的代码</p>
+<pre><code>export NVM_NODEJS_ORG_MIRROR=http://npm.taobao.org/mirrors/node
+export NVM_IOJS_ORG_MIRROR=http://npm.taobao.org/mirrors/iojs
 </code></pre>
-<p>然后，查看表内字符集</p>
-<blockquote>
-<p>use test_db;<br>
-show create table test_table;</p>
-</blockquote>
-<pre><code>...
-`user_name` varchar(64) DEFAULT NULL,
-...
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
+<p>运行source ~/.zshrc更新环境变量(我本地的shell已经安装了Ohmyzsh)</p>
+<p>运行nvm install node安装nodejs</p>
+<p>接下来更新npm的镜像源，安装淘宝cnpm</p>
+<p>cnpm<br>
+输入命令</p>
+<p>打开~/.zshrc加入以下代码</p>
+<pre><code>#alias for cnpm
+alias cnpm=&quot;npm --registry=https://registry.npm.taobao.org \
+  --cache=$HOME/.npm/.cache/cnpm \
+  --disturl=https://npm.taobao.org/dist \
+  --userconfig=$HOME/.cnpmrc&quot;
 </code></pre>
-<p>好了，确定是这样，解决起来就简单了</p>
-<pre><code class="language-SQL">ALTER DATABASE `test_db` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_unicode_ci';
-
-use test_db;
-
-ALTER TABLE `test_table` CONVERT TO CHARACTER SET `utf8mb4` COLLATE `utf8mb4_general_ci`; 
-
-</code></pre>
-<p>执行之后，数据库和表，就变成了 utf8mb4</p>
-<p>此方法只适用于默认编码，表中的字段没有设置字符集的状态。</p>
-<p>如果字段已经设置字符集，修改每个字段的字符集，就比较麻烦了</p>
+<p>运行source ~/.zshrc更新环境变量,cnpm就配置完成了</p>
+<p>作者：vouv<br>
+链接：https://www.jianshu.com/p/2b47107e188a<br>
+来源：简书<br>
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 
             </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://i29.github.io/webddc.com/post/centos-shi-yong-yum-an-zhuang-php-huan-jing/">
+                <a href="https://i29.github.io/webddc.com/post/you-mysql-mo-ren-bian-ma-latin1-dao-zhi-bu-neng-xie-ru-zhong-wen-de-jie-jue/">
                   <h3 class="post-title">
-                    CentOS使用yum安装php环境
+                    由mysql默认编码latin1导致不能写入中文的解决
                   </h3>
                 </a>
               </div>
